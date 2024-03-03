@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Register Freelancer</h2>
+<mat-dialog-content class="mat-typography">
+    <div fxLayout="column" fxLayoutAlign="start stretch" style="margin: 5px;">
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Username</mat-label>
+                <input matInput [(ngModel)]="data.username" (keyup)="checkUsername(data.username)" required>
+                <mat-icon matSuffix style="color: green;" [hidden]="!data.username || isUsernameExist">check</mat-icon>
+                <mat-icon matSuffix style="color: red;" [hidden]="!data.username || !isUsernameExist">close</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="data.email">
+                <mat-icon matSuffix>mail</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Phone</mat-label>
+                <input matInput [(ngModel)]="data.phoneNo">
+                <mat-icon matSuffix>call</mat-icon>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Skillsets</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Enter fruits">
+                <mat-chip-row *ngFor="let fruit of skills" (removed)="remove(fruit)" [editable]="true"
+                    (edited)="edit(fruit, $event)" [aria-description]="'press enter to edit ' + fruit.name">
+                    {{fruit.name}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + fruit.name">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+                <input placeholder="Press ENTER/TAB once add in value..." [matChipInputFor]="chipGrid"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)" />
+            </mat-chip-grid>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Hobby</mat-label>
+            <textarea matInput [(ngModel)]="data.hobby"></textarea>
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onUpdate()" cdkFocusInitial
+        [disabled]="!data.username || !data.phoneNo || !data.email"><mat-icon>edit</mat-icon>
+        Update</button>
+</mat-dialog-actions>

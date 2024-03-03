@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Delete User (Freelancer)</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>Are you sure you want to delete?</h3>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial><mat-icon>delete</mat-icon>
+        Delete</button>
+</mat-dialog-actions>
