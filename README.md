@@ -1,4 +1,4 @@
-﻿# Assessment
+﻿# Assessment By Zulfikri
 
 The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/Assessment) version 8.0.3.
 
@@ -14,5 +14,4 @@ To add a new migration from the root folder:
 * ASP.NET Core 8
 * Entity Framework Core 8
 * Angular 15
-* MediatR
 * AutoMapper
