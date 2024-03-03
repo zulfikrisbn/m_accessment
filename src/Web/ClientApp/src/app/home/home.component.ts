@@ -47,7 +47,8 @@ export class HomeComponent implements AfterViewInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(RegisterComponent, {
-      width: '50%'
+      width: '50%',
+      disableClose: true
     })
 
     dialogRef.afterClosed().subscribe(result => {
@@ -59,6 +60,7 @@ export class HomeComponent implements AfterViewInit {
         command.skillSets = result.skillSets;
         command.hobby = result.hobby;
         this.freelancerClient.createFreelancer(command).subscribe(response => {
+          this.refresh();
           this.snackBar.open('Registration Successful!', 'Ok', {
             duration: 3000
           });
@@ -76,23 +78,26 @@ export class HomeComponent implements AfterViewInit {
       if (response) {
         const viewdialogRef = this.viewdialog.open(ViewFreelancerComponent, {
           width: '50%',
+          disableClose: true,
           data: response
         })
 
-        viewdialogRef.afterClosed().subscribe(result => {
-          const command = new UpdateFreelancerCommand();
-          command.id = response.id;
-          command.username = response.username;
-          command.phoneNo = response.phoneNo;
-          command.email = response.email;
-          command.skillSets = response.skillSets;
-          command.hobby = response.hobby;
-          this.freelancerClient.updateFreelancer(command).subscribe(x => {
-            this.refresh();
-            this.snackBar.open('Update Successful!', 'Ok', {
-              duration: 3000
+        viewdialogRef.afterClosed().subscribe(response => {
+          if (response) {
+            const command = new UpdateFreelancerCommand();
+            command.id = response.id;
+            command.username = response.username;
+            command.phoneNo = response.phoneNo;
+            command.email = response.email;
+            command.skillSets = response.skillSets;
+            command.hobby = response.hobby;
+            this.freelancerClient.updateFreelancer(command).subscribe(x => {
+              this.refresh();
+              this.snackBar.open('Update Successful!', 'Ok', {
+                duration: 3000
+              });
             });
-          });
+          }
         });
       }
     }, error => {
@@ -112,7 +117,8 @@ export class HomeComponent implements AfterViewInit {
 
   delete(id: number) {
     const dialogRef = this.viewdialog.open(ConfirmComponent, {
-      width: '40%'
+      width: '40%',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(response => {
