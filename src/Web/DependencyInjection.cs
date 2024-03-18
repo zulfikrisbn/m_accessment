@@ -49,6 +49,7 @@ public static class DependencyInjection
                 new DefaultAzureCredential());
         }
 
+        //return services;
         return services;
     }
 }
